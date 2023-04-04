@@ -3,6 +3,8 @@ import BootLoader from "./Components/Bootstrap";
 import Header from "./Components/Header";
 import React from "react";
 import Logo from "./assets/logo/gain.png";
+import {Button, TextField} from "@material-ui/core";
+
 
 function App() {
   return (
@@ -22,7 +24,7 @@ function App() {
           </div>
           <div className="absolute w-full h-auto z-10 ease-in duration-300 bg-black">
             <div className="m-auto flex justify-center items-center text-white  w-full h-auto bg-gray-500">
-              <ul className="hidden md:flex uppercase text-md font-[500] md:gap-10">
+              <ul className="hidden  md:flex uppercase text-md font-[500] md:gap-10">
                 <li className="p-4 hover:text-orange-500">
                   <a href="/#home">Home</a>
                 </li>
@@ -40,6 +42,23 @@ function App() {
                 </li>
               </ul>
             </div>
+            <div className="w-full h-auto z-10 ease-in duration-300 bg-black">
+            <div className="m-auto py-2 flex justify-center items-center text-white  w-full h-auto bg-white">
+              <div className="">
+              <TextField
+                className={'search-fields'}
+                placeholder={'Event name'}
+                type = {'search'}
+                name={''}
+                id={''}
+                variant="outlined"
+                required
+                fullWidth
+              />
+              </div>
+            
+            </div>
+          </div>
           </div>
         </div>
       </header>
