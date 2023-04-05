@@ -36,7 +36,7 @@ html {
         @apply cursor-pointer
     }
 
-    button {
-        @apply shadow-lg shadow-orange-200 rounded-xl uppercase bg-gradient-to-r from-[#f56f42] to-[#f5b342] text-white
-    }
+    /*button {*/
+    /*    @apply shadow-lg shadow-orange-200 rounded-xl uppercase bg-gradient-to-r from-[#f56f42] to-[#f5b342] text-white*/
+    /*}*/
 }

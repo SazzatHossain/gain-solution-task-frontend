@@ -26,44 +26,72 @@ function App() {
             <div className="m-auto flex justify-center items-center text-white  w-full h-auto bg-gray-500">
               <ul className="hidden  md:flex uppercase text-md font-[500] md:gap-10">
                 <li className="p-4 hover:text-orange-500">
-                  <a href="/#home">Home</a>
+                  <a href="/">Home</a>
                 </li>
                 <li className="p-4 hover:text-orange-500">
-                  <a href="/#about-me">About Me</a>
+                  <a href="#">Create Event</a>
                 </li>
                 <li className="p-4 hover:text-orange-500">
-                  <a href="/#skills">Skills</a>
+                  <a href="#">User Profile</a>
                 </li>
                 <li className="p-4 hover:text-orange-500">
-                  <a href="/#projects">Projects</a>
+                  <a href="#">Login</a>
                 </li>
-                <li className="p-4 hover:text-orange-500">
-                  <a href="/#contact">Contact</a>
-                </li>
+
               </ul>
             </div>
             <div className="w-full h-auto z-10 ease-in duration-300 bg-black">
-            <div className="m-auto py-2 flex justify-center items-center text-white  w-full h-auto bg-white">
-              <div className="">
-              <TextField
-                className={'search-fields'}
-                placeholder={'Event name'}
-                type = {'search'}
-                name={''}
-                id={''}
-                variant="outlined"
-                required
-                fullWidth
-              />
+              <div className="m-auto py-2 flex justify-center items-center text-black  w-full h-auto bg-white ">
+                <div className="">
+                  <TextField
+                    className={'search-fields'}
+                    placeholder={'Search events'}
+                    type={'search'}
+                    name={''}
+                    id={''}
+                    variant="outlined"
+                    required
+                    fullWidth
+                    size={"small"}
+                    style={{width: 400, marginRight: 20}}
+                  />
+                  <TextField
+                    className={'search-fields'}
+                    type = {'date'}
+                    name={''}
+                    id={''}
+                    variant="outlined"
+                    required
+                    size={"small"}
+                    style={{marginRight: 20}}
+                  />
+                  <TextField
+                    className={'search-fields'}
+                    type = {'date'}
+                    name={''}
+                    id={''}
+                    variant="outlined"
+                    required
+                    size={"small"}
+                  />
+                </div>
               </div>
-            
             </div>
-          </div>
           </div>
         </div>
       </header>
 
-      <BootLoader />
+      <BootLoader/>
+
+
+      <footer>
+        <div className="absolute  w-full h-auto z-10 ease-in duration-300 bg-black">
+          <div className="m-auto flex justify-between items-center text-white lg:max-w-[75vw]">
+
+          </div>
+        </div>
+
+      </footer>
     </div>
   );
 }
