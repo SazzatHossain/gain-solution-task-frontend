@@ -1,4 +1,4 @@
-let HOST = 'http://7:3001/api/v1';
+let HOST = 'http://127.0.0.1:3001/api/v1';
 
 if(process.env.NODE_ENV === 'development') {
   HOST = 'http://127.0.0.1:3001/api/v1';
