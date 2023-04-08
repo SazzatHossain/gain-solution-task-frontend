@@ -1,8 +1,19 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {Link} from 'react-router-dom';
 import {Button, CardActions, CardContent, TextField, Typography} from "@material-ui/core";
+import {useFetchUserProfileDetail} from "../../../../Hooks/useFetchUserProfile";
+import {useUpdateUserInfo} from "../../../../Hooks/useUpdateUserInfo";
+import {ToastContainer} from "react-toastify";
+import {validateMaxLength, validateMinLength, validateRequired, validates} from "../../../FormValidator/Validator";
+import {
+  EMAIL_MAX_LEN, FIRST_NAME_MAX_LEN, FIRST_NAME_MIN_LEN, LAST_NAME_MAX_LEN, LAST_NAME_MIN_LEN,
+  PASSWORD_MAX_LEN,
+  PASSWORD_MIN_LEN,
+  PHONE_NO_MAX_LEN,
+  PHONE_NO_MIN_LEN
+} from "../../../../Constants/general";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,8 +25,56 @@ const useStyles = makeStyles((theme) => ({
 }));
 const UserProfileEdit = () => {
   const classes = useStyles();
+  const [res, fetchUser] = useFetchUserProfileDetail();
+  const [,updateUser] = useUpdateUserInfo();
+  const [user, setUser] = useState({});
+  const [errors, setErrors] = useState();
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  useEffect(() => {
+    const userInfo = res?.data?.user;
+    setUser({
+      id: userInfo?.id,
+      first_name: userInfo?.first_name,
+      last_name: userInfo?.last_name,
+      email: userInfo?.email,
+    });
+  }, [res]);
+  const handleChange = (event) => {
+    setUser((prevValue) => ({...prevValue, [event.target.name]: event.target.value}));
+  };
+
+  const saveUserDetail = () => {
+    updateUser(user);
+  };
+
+  ///////////// form validation
+  let buttonClickable = false;
+  if (!user.first_name?.length > 0 || !user.last_name?.length > 0 || !user.email?.length > 0  ||  errors.first_name?.length > 0 || errors.last_name?.length > 0 || errors.email?.length > 0 || errors.password?.length > 0) {
+    buttonClickable = true;
+  }
+
+  useEffect(() => {
+    setErrors(
+      validates(
+        validateRequired('first_name'),
+        validateRequired('last_name'),
+        validateRequired('email'),
+        validateMaxLength('email', EMAIL_MAX_LEN),
+        validateMaxLength('first_name', FIRST_NAME_MAX_LEN),
+        validateMinLength('first_name', FIRST_NAME_MIN_LEN),
+        validateMaxLength('last_name', LAST_NAME_MAX_LEN),
+        validateMinLength('last_name', LAST_NAME_MIN_LEN),
+      )(user, {}),
+    );
+  }, [user]);
+
   return (
     <>
+      <ToastContainer/>
       <div id='home' className=' flex items-center justify-center h-auto my-12 bg-fixed bg-center bg-cover '>
         <div  className='flex flex-col z-[3]'>
           <div className={classes.root}>
@@ -36,10 +95,13 @@ const UserProfileEdit = () => {
                     First Name:
                   </Typography>
                   <TextField variant="outlined"
-                             label='First Name'
                              placeholder="First Name"
                              name={'first_name'}
                              required
+                             value={user?.first_name}
+                             onChange={handleChange}
+                             error={Boolean(errors?.first_name)}
+                             helperText={(errors?.first_name)}
                   />
                 </div>
                 <div className={"flex justify-between my-2"}>
@@ -47,10 +109,12 @@ const UserProfileEdit = () => {
                     Last Name:
                   </Typography>
                   <TextField variant="outlined"
-                             label='Last name'
                              placeholder="Last Name"
                              name={'last_name'}
                              required
+                             value={user?.last_name}
+                             onChange={handleChange}                         error={Boolean(errors?.first_name)}
+                             helperText={(errors?.last_name)}
                   />
                 </div>
                 <div className={"flex justify-between my-2"}>
@@ -58,14 +122,17 @@ const UserProfileEdit = () => {
                     Email:
                   </Typography>
                   <TextField variant="outlined"
-                             label='Email'
                              placeholder="Email"
                              type= "email"
-                             name={'Email'}
+                             name={'email'}
                              required
+                             value={user?.email}
+                             onChange={handleChange}
+                             error={Boolean(errors?.first_name)}
+                             helperText={(errors?.email)}
                   />
                 </div>
-                <Button onClick={''} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+                <Button disabled={buttonClickable} onClick={saveUserDetail} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
                   <span style={{color: "#ffffff", fontWeight: "bold"}}>Update info</span>
                 </Button>
               </CardContent>

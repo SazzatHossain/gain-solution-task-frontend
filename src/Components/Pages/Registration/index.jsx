@@ -1,15 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {Button, Container, Grid, TextField} from "@material-ui/core";
 import {useFetchRegistrationToken} from "../../../Hooks/useFetchRegistrationToken";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import {validates,validateRequired,validateMaxLength,validateMinLength} from "../../FormValidator/Validator";
+import {
+  EMAIL_MAX_LEN,
+  FIRST_NAME_MAX_LEN,
+  FIRST_NAME_MIN_LEN,
+  LAST_NAME_MAX_LEN,
+  LAST_NAME_MIN_LEN, PASSWORD_MAX_LEN, PASSWORD_MIN_LEN, PHONE_NO_MAX_LEN, PHONE_NO_MIN_LEN
+} from "../../../Constants/general";
 
 const useStyles = makeStyles({
   root: {
     minHeight: 350,
     maxWidth: 600,
+    minWidth: 400,
     padding: 16
   }
 });
@@ -18,39 +27,42 @@ const Registration = () => {
   const classes = useStyles();
   const [user, setUser] = useState({});
   const [, fetchRegistration] = useFetchRegistrationToken();
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState();
+
   const handleChange = (event) => {
     setUser((prevValue) => ({...prevValue, [event.target.name]: event.target.value}));
   }
   const handleSubmit = () => {
-    if(user.first_name !== "" && user.last_name !== "" && user.phone_no !== "" && user.password !== "" && confirmPassword !== ""){
-      if(user.password === confirmPassword){
         fetchRegistration(user.first_name, user.last_name, user.phone_no, user.password );
-      }else{
-        toast.error('Password do not match', {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      }
-    }else{
-      toast.error('All fields must be filled', {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    }
   };
+
+  ///////////// form validation
+  let buttonClickable = false;
+  if (!user.first_name?.length > 0 || !user.last_name?.length > 0 || !user.phone_no?.length > 0 || !user.email?.length > 0 || !user.password?.length > 0 ||  errors.first_name?.length > 0 || errors.last_name?.length > 0 || errors.phone_no?.length > 0 || errors.email?.length > 0 || errors.password?.length > 0) {
+    buttonClickable = true;
+  }
+
+  useEffect(() => {
+    setErrors(
+      validates(
+        validateRequired('first_name'),
+        validateRequired('last_name'),
+        validateRequired('phone_no'),
+        validateRequired('email'),
+        validateRequired('password'),
+        validateMaxLength('phone_no', PHONE_NO_MAX_LEN),
+        validateMinLength('phone_no', PHONE_NO_MIN_LEN),
+        validateMaxLength('email', EMAIL_MAX_LEN),
+        validateMaxLength('password', PASSWORD_MAX_LEN),
+        validateMinLength('password', PASSWORD_MIN_LEN),
+        validateMaxLength('first_name', FIRST_NAME_MAX_LEN),
+        validateMinLength('first_name', FIRST_NAME_MIN_LEN),
+        validateMaxLength('last_name', LAST_NAME_MAX_LEN),
+        validateMinLength('last_name', LAST_NAME_MIN_LEN),
+      )(user, {}),
+    );
+  }, [user]);
+
   return (
     <>
       <div id='home' className=' flex items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover '>
@@ -68,7 +80,8 @@ const Registration = () => {
                          name={'first_name'}
                          required
                          onChange={handleChange}
-
+                         error={Boolean(errors?.first_name)}
+                         helperText={(errors?.first_name)}
               />
               <br/><br/>
               <TextField variant="outlined"
@@ -78,6 +91,8 @@ const Registration = () => {
                          name={'last_name'}
                          required
                          onChange={handleChange}
+                         error={Boolean(errors?.last_name)}
+                         helperText={(errors?.last_name)}
               />
               <br/><br/>
               <TextField variant="outlined"
@@ -88,7 +103,8 @@ const Registration = () => {
                          name={'email'}
                          required
                          onChange={handleChange}
-
+                         error={Boolean(errors?.email)}
+                         helperText={(errors?.email)}
               />
               <br/><br/>
               <TextField variant="outlined"
@@ -98,7 +114,8 @@ const Registration = () => {
                          name={'phone_no'}
                          required
                          onChange={handleChange}
-
+                         error={Boolean(errors?.phone_no)}
+                         helperText={(errors?.phone_no)}
               />
               <br/><br/>
               <TextField variant="outlined"
@@ -109,28 +126,18 @@ const Registration = () => {
                          fullWidth
                          required
                          onChange={handleChange}
-
+                         error={Boolean(errors?.password)}
+                         helperText={(errors?.password)}
               />
               <br/><br/>
-              <TextField
-                onChange={e => setConfirmPassword(e.target.value)}
-                name={"confirm_password"}
-                type="password"
-                variant="outlined"
-                required
-                fullWidth
-                id="password"
-                label="Re-enter Password"
-                placeholder="Re-enter Password"
-                onChange={handleChange}
-              />
-              <Button onClick={handleSubmit} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+              <Button onClick={handleSubmit} variant="contained" color="primary" disabled={buttonClickable} fullWidth style={{marginTop:20}}>
                 <span style={{color: "#ffffff", fontWeight: "bold"}}>Sign Up</span>
               </Button>
             </Container>
           </Card>
         </div>
       </div>
+      <ToastContainer/>
     </>
   );
 };

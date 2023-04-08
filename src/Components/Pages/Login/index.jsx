@@ -1,10 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {Button, Container, Grid, TextField, Typography} from "@material-ui/core";
 import {useFetchLoginToken} from "../../../Hooks/useFetchLoginToken";
 import {toast} from "react-toastify";
+import {validateMaxLength, validateMinLength, validateRequired, validates} from "../../FormValidator/Validator";
+import {
+  PASSWORD_MAX_LEN,
+  PASSWORD_MIN_LEN,
+  PHONE_NO_MAX_LEN,
+  PHONE_NO_MIN_LEN
+} from "../../../Constants/general";
 
 const useStyles = makeStyles({
   root: {
@@ -19,6 +26,7 @@ const Login = () => {
   const links = {color: "#0067B1"};
   const [user, setUser] = useState({});
   const [, fetchLogin] = useFetchLoginToken();
+  const [errors, setErrors] = useState();
 
   const handleChange = (event) => {
     setUser((prevValue) => ({...prevValue, [event.target.name]: event.target.value}));
@@ -33,6 +41,25 @@ const Login = () => {
       });
     }
   };
+  ///////////// form validation
+  let buttonClickable = false;
+  if ( !user.phone_no?.length > 0 || !user.password?.length > 0 || errors.phone_no?.length > 0  || errors.password?.length > 0) {
+    buttonClickable = true;
+  }
+
+  useEffect(() => {
+    setErrors(
+      validates(
+        validateRequired('phone_no'),
+        validateRequired('password'),
+        validateMaxLength('phone_no', PHONE_NO_MAX_LEN),
+        validateMinLength('phone_no', PHONE_NO_MIN_LEN),
+        validateMaxLength('password', PASSWORD_MAX_LEN),
+        validateMinLength('password', PASSWORD_MIN_LEN),
+      )(user, {}),
+    );
+  }, [user]);
+
   return (
     <>
       <div id='home' className=' flex  justify-center h-screen bg-fixed bg-center bg-cover '>
@@ -49,6 +76,8 @@ const Login = () => {
                          name={'phone_no'}
                          required
                          onChange={handleChange}
+                         error={Boolean(errors?.phone_no)}
+                         helperText={(errors?.phone_no)}
               />
               <br/><br/>
               <TextField variant="outlined"
@@ -59,8 +88,10 @@ const Login = () => {
                          fullWidth
                          required
                          onChange={handleChange}
+                         error={Boolean(errors?.password)}
+                         helperText={(errors?.password)}
               />
-              <Button onClick={handleSubmit}  variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+              <Button onClick={handleSubmit} disabled={buttonClickable} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
                 <span style={{color: "#ffffff", fontWeight: "bold"}}>Sign In</span>
               </Button>
 

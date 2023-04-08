@@ -28,7 +28,6 @@ const EventNewPage = () => {
         </div>
       </div>
     </>
-
   );
 };
 
