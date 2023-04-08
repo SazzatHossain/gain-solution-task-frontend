@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {Link} from 'react-router-dom';
-import {Button, CardActions, CardContent, Typography} from "@material-ui/core";
-import {useFetchUserProfileDetail} from "../../../Hooks/useFetchUserProfile";
+import {Button, CardActions, CardContent, TextField, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,13 +12,8 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 500
   }
 }));
-const UserProfile = () => {
+const UserProfileEdit = () => {
   const classes = useStyles();
-  const [res, fetchUser] = useFetchUserProfileDetail();
-  let userInfo = res?.data?.user;
-  useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
   return (
     <>
       <div id='home' className=' flex items-center justify-center h-auto my-12 bg-fixed bg-center bg-cover '>
@@ -31,9 +25,9 @@ const UserProfile = () => {
                   <Typography gutterBottom variant="h5" component="h2">
                     User Information
                   </Typography>
-                  <Link to="/user-profile-edit">
+                  <Link to="/user-profile">
                     <Typography className={"cursor-pointer hover:underline"} gutterBottom variant="h6" component="h6">
-                      Edit
+                      Back
                     </Typography>
                   </Link>
                 </div>
@@ -41,34 +35,39 @@ const UserProfile = () => {
                   <Typography variant="h6"  component="h6">
                     First Name:
                   </Typography>
-                  <Typography variant="h6" color="textSecondary" component="h6">
-                    {userInfo?.first_name}
-                  </Typography>
+                  <TextField variant="outlined"
+                             label='First Name'
+                             placeholder="First Name"
+                             name={'first_name'}
+                             required
+                  />
                 </div>
                 <div className={"flex justify-between my-2"}>
                   <Typography variant="h6"  component="h6">
                     Last Name:
                   </Typography>
-                  <Typography variant="h6" color="textSecondary" component="h6">
-                    {userInfo?.last_name}
-                  </Typography>
-                </div>
-                <div className={"flex justify-between my-2"}>
-                  <Typography variant="h6"  component="h6">
-                    Phone No:
-                  </Typography>
-                  <Typography variant="h6" color="textSecondary" component="h6">
-                    {userInfo?.phone_no}
-                  </Typography>
+                  <TextField variant="outlined"
+                             label='Last name'
+                             placeholder="Last Name"
+                             name={'last_name'}
+                             required
+                  />
                 </div>
                 <div className={"flex justify-between my-2"}>
                   <Typography variant="h6"  component="h6">
                     Email:
                   </Typography>
-                  <Typography variant="h6" color="textSecondary" component="h6">
-                    {userInfo?.email}
-                  </Typography>
+                  <TextField variant="outlined"
+                             label='Email'
+                             placeholder="Email"
+                             type= "email"
+                             name={'Email'}
+                             required
+                  />
                 </div>
+                <Button onClick={''} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+                  <span style={{color: "#ffffff", fontWeight: "bold"}}>Update info</span>
+                </Button>
               </CardContent>
             </Card>
           </div>
@@ -78,4 +77,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default UserProfileEdit;

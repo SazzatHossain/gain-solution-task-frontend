@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {Button, Container, Grid, TextField} from "@material-ui/core";
+import {useSaveEventDetail} from "../../../Hooks/useCreateEvents";
 
 const useStyles = makeStyles({
   root: {
@@ -11,8 +12,18 @@ const useStyles = makeStyles({
   }
 });
 
-const EventCreateForm = () => {
+const EventCreateForm = ({event, setEvent}) => {
   const classes = useStyles();
+  const [, saveEvent] = useSaveEventDetail();
+
+  const handleChange = (event) => {
+    setEvent((prevValue) => ({...prevValue, [event.target.name]: event.target.value}));
+  };
+  console.log(event);
+
+  const saveEventDetail = () => {
+    saveEvent(event);
+  };
 
   return (
     <Card className={classes.root}>
@@ -24,8 +35,9 @@ const EventCreateForm = () => {
                    label='Event title'
                    placeholder="Event title"
                    fullWidth
-                   name={'event_title'}
+                   name={'title'}
                    required
+                   onChange={handleChange}
 
         />
         <br/><br/>
@@ -38,32 +50,36 @@ const EventCreateForm = () => {
           placeholder="Event description"
           style={{ width: "100%" }}
           name={'description'}
+          onChange={handleChange}
         />
         <br/><br/>
         <TextField variant="outlined"
                    label="Location"
                    placeholder="Input address"
-                   name={"password"}
+                   name={"location"}
                    fullWidth
                    required
+                   onChange={handleChange}
         />
         <br/><br/>
         <TextField variant="outlined"
                    placeholder="Starting at"
-                   name={"password"}
+                   name={"start_time"}
                    type='datetime-local'
                    fullWidth
                    required
+                   onChange={handleChange}
         />
         <br/><br/>
         <TextField variant="outlined"
                    placeholder="End at"
-                   name={"password"}
+                   name={"end_time"}
                    type='datetime-local'
                    fullWidth
                    required
+                   onChange={handleChange}
         />
-        <Button  variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+        <Button  onClick={saveEventDetail} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
           <span style={{color: "#ffffff", fontWeight: "bold"}}>Create Event</span>
         </Button>
       </Container>

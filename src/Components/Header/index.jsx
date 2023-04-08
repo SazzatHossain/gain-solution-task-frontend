@@ -1,13 +1,24 @@
 import React, {useState, useEffect} from "react";
-import Logo from "../../assets/logo/gain.png";
+import Logo from "../../assets/logo/Gain-Solutions-Logo.png";
 import {Link} from 'react-router-dom';
 import {TextField} from "@material-ui/core";
+import {useDispatch, useSelector} from "react-redux";
+import {filterText, setFilter} from "../../redux/slices/fliterSlice";
 
 const Header = () => {
+  const filter = useSelector((state) =>state.filterText);
+  const dispatch = useDispatch();
+  const checkIfLoggedIn = () => {
+    return !(localStorage.getItem("token") === null || typeof localStorage.getItem("token") === 'undefined');
+  };
+  const [isLoggedIn, setIsLoggedIn] = useState(checkIfLoggedIn());
+  const onLoginSuccess = () => {
+    setIsLoggedIn(true);
+  };
   return (
     <>
-      <header className="bg-white border-gray-200 dark:bg-gray-900">
-        <div className=" flex flex-wrap items-center justify-between w-full bg-gray-800 p-4">
+      <header className="bg-gray-700 border-gray-200 dark:bg-gray-900">
+        <div className=" flex flex-wrap items-center justify-between w-full bg-gray-700 p-4 mx-[10%]">
           <a href="/" className="">
             <img
               src={Logo}
@@ -45,22 +56,30 @@ const Header = () => {
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Create
                     Event</Link>
                 </li>
-                <li>
-                  <Link to="/user-profile"
-                        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">User
-                    Profile</Link>
-                </li>
-                <li>
-                  <Link to="/login"
-                        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Login</Link>
-                </li>
+                {!isLoggedIn && (
+                  <li>
+                    <Link to="/login"
+                          className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Login</Link>
+                  </li>
+                )}
+                {isLoggedIn && (
+                  <li>
+                    <Link to="/user-profile"
+                          className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">User
+                      Profile</Link>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
         </nav>
-        <div className=" flex flex-wrap items-center justify-center w-full p-4">
+        <div className="bg-white flex flex-wrap items-center justify-center w-full pb-4">
           <div className="">
             <TextField
+              onChange={(e)=>
+                dispatch(setFilter(e.target.value))
+            }
+              value={filter}
               className={'search-fields'}
               placeholder={'Search events'}
               type={'search'}

@@ -9,7 +9,7 @@ export const useFetchRegistrationToken = () => {
     isLoading: false,
     error: null,
   });
-  const fetchRegistration = useCallback((firstName, lastName, phoneNo, password, onRegistrationSuccess, onRegistrationFailure)=>{
+  const fetchRegistration = useCallback((firstName, lastName, phoneNo, password)=>{
     // setResponse(prevState => ({...prevState, isLoading: true}));
     const asyncRequest = async () => {
       const url = urls.registrationUrl;
@@ -19,12 +19,10 @@ export const useFetchRegistrationToken = () => {
         position: toast.POSITION.BOTTOM_LEFT,
         autoClose: 3000
       });
-      onRegistrationSuccess();
     };
 
     asyncRequest().catch(error => {
       setRegistrationResponse(prevState => ({...prevState, isLoading: false}));
-      onRegistrationFailure(error);
     });
   }, [setRegistrationResponse]);
 
