@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders footer 1`] = `
+<footer
+  class="relative left-0 bottom-0 w-full bg-gray-800 border-gray-200 dark:bg-gray-900"
+  data-testid="footer-test"
+>
+  <div
+    class=" flex items-center justify-between min-h-[30vh] w-full bg-gray-800 p-4"
+  />
+</footer>
+`;

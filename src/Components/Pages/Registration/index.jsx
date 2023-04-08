@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {Button, Container, Grid, TextField} from "@material-ui/core";
-import {toast} from "react-toastify";
 import {useFetchRegistrationToken} from "../../../Hooks/useFetchRegistrationToken";
-
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles({
   root: {
@@ -19,37 +19,48 @@ const Registration = () => {
   const [user, setUser] = useState({});
   const [, fetchRegistration] = useFetchRegistrationToken();
   const [confirmPassword, setConfirmPassword] = useState('');
-
+  const handleChange = (event) => {
+    setUser((prevValue) => ({...prevValue, [event.target.name]: event.target.value}));
+  }
   const handleSubmit = () => {
     if(user.first_name !== "" && user.last_name !== "" && user.phone_no !== "" && user.password !== "" && confirmPassword !== ""){
       if(user.password === confirmPassword){
         fetchRegistration(user.first_name, user.last_name, user.phone_no, user.password );
       }else{
-        toast.error("Password do not match", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          autoClose: 3000
+        toast.error('Password do not match', {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
         });
       }
     }else{
-      toast.error("All fields must be filled", {
-        position: toast.POSITION.BOTTOM_LEFT,
-        autoClose: 3000
+      toast.error('All fields must be filled', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
     }
-  };
-console.log(user);
-  const handleChange = (event) => {
-    setUser((prevValue) => ({...prevValue, [event.target.name]: event.target.value}));
   };
   return (
     <>
       <div id='home' className=' flex items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover '>
-        <div style={{marginTop: 60}} className='flex flex-col mt-[200px] z-[3]'>
+        <div  className='flex flex-col mt-[60px] z-[3]'>
           <Card className={classes.root}>
             <Container  component="main" maxWidth="xs">
-              <Grid align="center" style={{paddingBottom: 20}}>
-                <p style={{fontWeight:"bold", fontSize: 20}}>Sign Up</p>
+              <Grid align="center" >
+                <p className={"font-bold text-2xl pb-3"}>Sign Up</p>
               </Grid>
+              <ToastContainer/>
               <TextField variant="outlined"
                          label='First Name'
                          placeholder="First Name"
@@ -67,7 +78,6 @@ console.log(user);
                          name={'last_name'}
                          required
                          onChange={handleChange}
-
               />
               <br/><br/>
               <TextField variant="outlined"
@@ -75,7 +85,7 @@ console.log(user);
                          placeholder="Email"
                          type= "email"
                          fullWidth
-                         name={'Email'}
+                         name={'email'}
                          required
                          onChange={handleChange}
 

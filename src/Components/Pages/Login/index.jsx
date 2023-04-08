@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {Button, Container, Grid, TextField, Typography} from "@material-ui/core";
+import {useFetchLoginToken} from "../../../Hooks/useFetchLoginToken";
+import {toast} from "react-toastify";
 
 const useStyles = makeStyles({
   root: {
@@ -15,14 +17,30 @@ const useStyles = makeStyles({
 const Login = () => {
   const classes = useStyles();
   const links = {color: "#0067B1"};
+  const [user, setUser] = useState({});
+  const [, fetchLogin] = useFetchLoginToken();
+
+  const handleChange = (event) => {
+    setUser((prevValue) => ({...prevValue, [event.target.name]: event.target.value}));
+  };
+  const handleSubmit = async () => {
+    if (user.phone_no !== "" && user.password !== "") {
+      fetchLogin(user.phone_no, user.password);
+    } else {
+      toast.error("All fields must be filled", {
+        position: toast.POSITION.BOTTOM_LEFT,
+        autoClose: 3000
+      });
+    }
+  };
   return (
     <>
-      <div id='home' className=' flex items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover '>
-        <div style={{marginTop: 60}} className='flex flex-col z-[3]'>
+      <div id='home' className=' flex  justify-center h-screen bg-fixed bg-center bg-cover '>
+        <div  className='flex flex-col z-[3] mt-[60px]'>
           <Card className={classes.root}>
             <Container  component="main" maxWidth="xs">
-              <Grid align="center" style={{paddingBottom: 20}}>
-                <p style={{fontWeight:"bold", fontSize: 20}}>Sign In</p>
+              <Grid align="center" className={'pb-[20px]'}>
+                <p className={"font-bold text-2xl "}>Sign In</p>
               </Grid>
               <TextField variant="outlined"
                          label='Enter phone no'
@@ -30,7 +48,7 @@ const Login = () => {
                          fullWidth
                          name={'phone_no'}
                          required
-
+                         onChange={handleChange}
               />
               <br/><br/>
               <TextField variant="outlined"
@@ -40,8 +58,9 @@ const Login = () => {
                          type='password'
                          fullWidth
                          required
+                         onChange={handleChange}
               />
-              <Button  variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+              <Button onClick={handleSubmit}  variant="contained" color="primary" fullWidth style={{marginTop:20}}>
                 <span style={{color: "#ffffff", fontWeight: "bold"}}>Sign In</span>
               </Button>
 
