@@ -22,8 +22,7 @@ const useStyles = makeStyles({
 const EventCard = ({ eventDetail,setRsvp }) => {
   const classes = useStyles();
   const [res, fetchRsvpResponse] = useFetchUserRsvpResponse();
-  // let rsvpResponse = res;
-  // console.log(rsvpResponse);
+  let rsvpResponse = res?.data?.data;
   const [data, saveRSVP] = useSaveRSVP();
   const saveRSVPDetail = (attending) => {
     saveRSVP(eventDetail.id, attending);

@@ -24,7 +24,7 @@ export const useSaveRSVP = () => {
       const url = urls.rsvp(eventId);
       const res = await axios.post(url, {attending}, config);
       setResponse(prevState => ({...prevState, data: res.data.data, isLoading: false}));
-      toast.success('Successfully responder', {
+      toast.success('Successfully responded', {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -37,6 +37,16 @@ export const useSaveRSVP = () => {
     };
 
     asyncRequest().catch(error => {
+      toast.error('Already responded', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       console.log(error);
       setResponse(prevState => ({...prevState, isLoading: false}));
     });

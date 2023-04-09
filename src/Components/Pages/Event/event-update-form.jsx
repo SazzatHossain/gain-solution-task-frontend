@@ -68,10 +68,10 @@ const EventUpdateForm = ({event, setEvent}) => {
           <p style={{fontWeight:"bold", fontSize: 20}}>Update a event</p>
         </Grid>
         <TextField variant="outlined"
-                   label='Event title'
                    placeholder="Event title"
                    fullWidth
                    name={'title'}
+                   value={event?.title}
                    required
                    onChange={handleChange}
                    error={Boolean(errors?.title)}
@@ -84,9 +84,9 @@ const EventUpdateForm = ({event, setEvent}) => {
           minRows={4}
           aria-label="minimum height"
           variant="outlined"
-          label='Event description'
           placeholder="Event description"
           style={{ width: "100%" }}
+          value={event?.description}
           name={'description'}
           onChange={handleChange}
           error={Boolean(errors?.description)}
@@ -94,8 +94,8 @@ const EventUpdateForm = ({event, setEvent}) => {
         />
         <br/><br/>
         <TextField variant="outlined"
-                   label="Location"
                    placeholder="Input address"
+                   value={event?.location}
                    name={"location"}
                    fullWidth
                    required
@@ -106,6 +106,7 @@ const EventUpdateForm = ({event, setEvent}) => {
         <br/><br/>
         <TextField variant="outlined"
                    placeholder="Starting at"
+                   value={event?.start_at}
                    name={"start_time"}
                    type='datetime-local'
                    fullWidth
@@ -117,6 +118,7 @@ const EventUpdateForm = ({event, setEvent}) => {
         <br/><br/>
         <TextField variant="outlined"
                    placeholder="End at"
+                   value={event?.end_at}
                    name={"end_time"}
                    type='datetime-local'
                    fullWidth

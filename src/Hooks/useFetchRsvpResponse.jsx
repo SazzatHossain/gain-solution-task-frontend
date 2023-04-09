@@ -13,7 +13,6 @@ export const useFetchUserRsvpResponse = () => {
     const asyncRequest = async () => {
       const res = await axios.get(urls.rsvpResponse(event_id), {params: {token: JSON.parse(localStorage.getItem("token"))}});
       setResponse(prevState => ({...prevState, data: res, isLoading: false}));
-      console.log(response);
 
     };
 

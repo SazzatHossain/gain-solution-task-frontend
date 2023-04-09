@@ -22,7 +22,7 @@ export const useUpdateEventDetail = () => {
         }
       };
       const url = `${urls.events}/${eventDetail.id}`;
-      const res = await axios.post(url, eventDetail, config);
+      const res = await axios.patch(url, eventDetail, config);
       setResponse(prevState => ({...prevState, data: res.data.data, isLoading: false}));
       toast.success("Successfully Updated Event", {
         position: "bottom-left",

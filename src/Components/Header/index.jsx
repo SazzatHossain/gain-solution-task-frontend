@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../../assets/logo/Gain-Solutions-Logo.png";
+import Logo from "../../assets/logo/color-logo-white.svg";
 import {Link, useNavigate} from "react-router-dom";
 import { TextField } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,7 +49,7 @@ const Header = () => {
       <header className="bg-gray-700 border-gray-200 dark:bg-gray-900">
         <div className=" flex flex-wrap items-center justify-between w-full bg-gray-700 p-4 mx-[10%]">
           <a href="/" className="">
-            <img src={Logo} alt="" className=" " width="150px" height="auto" />
+            <img src={Logo} alt="" className=" " width="70px" height="auto" />
           </a>
         </div>
         <nav className="bg-white border-gray-200 dark:bg-gray-900">

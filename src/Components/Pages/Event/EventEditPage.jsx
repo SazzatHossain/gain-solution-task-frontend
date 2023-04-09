@@ -17,11 +17,10 @@ const EventEditPage = () => {
   const {eventId} = useParams();
   const [event, setEvent] = useState({});
   const [response, fetchMyEventDetail] = useFetchMyEventDetail();
-console.log(response?.data?.event);
+
   useEffect(() => {
     fetchMyEventDetail(eventId);
   }, [fetchMyEventDetail]);
-
   useEffect(() => {
     const eventInfo = response?.data?.event;
     setEvent({
