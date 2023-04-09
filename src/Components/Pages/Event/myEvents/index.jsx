@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {useSelector} from "react-redux";
-import {filterText} from "../../../redux/slices/fliterSlice";
 import {TablePagination} from "@material-ui/core";
 import EventCard from "../EventCard";
 import {useFetchMyEventList} from "../../../../Hooks/useFetchMyEventsList";
