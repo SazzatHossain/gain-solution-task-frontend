@@ -22,7 +22,7 @@ const BootLoader = () => {
         <Route exact path="/user-profile" element={<UserProfile/>}/>
         <Route exact path="/user-profile-edit" element={<UserProfileEdit/>}/>
         <Route exact path="/create-event" element={<EventNewForm/>}/>
-        <Route exact path="/edit-my-events" element={<EventEditPage/>}/>
+        <Route exact path="/edit-my-event/:eventId" element={<EventEditPage/>}/>
         <Route exact path="/my-events" element={<MyEvents/>}/>
       </Routes>
       <Footer />

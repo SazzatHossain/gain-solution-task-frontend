@@ -7,7 +7,7 @@ import {
   CardContent,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useSaveRSVP } from "../../../../Hooks/useSaveRSVP";
 import {useFetchUserRsvpResponse} from "../../../../Hooks/useFetchRsvpResponse";
 import {ToastContainer} from "react-toastify";
@@ -43,7 +43,7 @@ const EventCard = ({ eventDetail,setRsvp }) => {
           {JSON.parse(localStorage.getItem("user_id")) ===
           eventDetail?.user_id ? (
             <>
-              <Link to="/edit-my-events">
+              <Link to={`edit-my-event/${eventDetail.id}`}>
                 <Typography
                   className={"cursor-pointer hover:underline"}
                   gutterBottom

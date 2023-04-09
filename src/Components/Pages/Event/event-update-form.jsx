@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {Button, Container, Grid, TextField} from "@material-ui/core";
-import {useSaveEventDetail} from "../../../Hooks/useCreateEvents";
 import {validateMaxLength, validateMinLength, validateRequired, validates} from "../../FormValidator/Validator";
 import {
   DESCRIPTION_NO_MAX_LEN,
@@ -35,6 +34,8 @@ const EventUpdateForm = ({event, setEvent}) => {
   const updateEventDetail = () => {
     updateEvent(event);
   };
+
+
   ///////////// form validation
   let buttonClickable = false;
   if (!event.title?.length > 0 || !event.description?.length > 0 || !event.location?.length > 0 || !event.start_time?.length > 0 || !event.end_time?.length > 0 ||  errors.title?.length > 0 || errors.description?.length > 0 || errors.location?.length > 0 || errors.start_time?.length > 0 || errors.end_time?.length > 0) {
@@ -64,7 +65,7 @@ const EventUpdateForm = ({event, setEvent}) => {
       <ToastContainer/>
       <Container  component="main" maxWidth="xs">
         <Grid align="center" style={{paddingBottom: 20}}>
-          <p style={{fontWeight:"bold", fontSize: 20}}>Create a event</p>
+          <p style={{fontWeight:"bold", fontSize: 20}}>Update a event</p>
         </Grid>
         <TextField variant="outlined"
                    label='Event title'

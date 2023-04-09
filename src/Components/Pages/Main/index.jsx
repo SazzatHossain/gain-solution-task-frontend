@@ -4,7 +4,6 @@ import EventCard from "../Event/EventCard";
 import {useFetchEventList} from "../../../Hooks/useFetchEventsLists";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {filterText} from "../../../redux/slices/fliterSlice";
 import {TablePagination} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,23 +26,34 @@ const Main = () => {
     setPage(value);
   };
   //// redux state value for search
-  const filterby = useSelector((state) => state.eventsFilter.filterText);
-
+  const queryText = useSelector(state => state.search.query);
+  const eventFromDateData = useSelector(state => state.search.eventFromDate);
+  const eventToDateData = useSelector(state => state.search.eventToDate);
   useEffect(() => {
-    fetchEvent(page, PER_PAGE, filterby);
-  }, [fetchEvent, page, filterby, rsvp]);
+    fetchEvent(page, PER_PAGE, queryText);
+  }, [fetchEvent, page, queryText,eventFromDateData,eventToDateData, rsvp]);
   return (
     <>
       <div id='home' className=' flex items-center justify-center h-auto mx-20 my-12 bg-fixed bg-center bg-cover '>
         <div  className='flex flex-col  z-[3]'>
           <div className={classes.root}>
-            <div className=' grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
-              {events.map((event) => {
-                return (
-                  <EventCard eventDetail={event} setRsvp={setRsvp}/>
-                );
-              })}
-            </div>
+            {events.length > 0 ? (
+              <>
+                <div className=' grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
+                  {events.map((event) => {
+                    return (
+                      <EventCard eventDetail={event} setRsvp={setRsvp}/>
+                    );
+                  })}
+                </div>
+              </>
+            ) : (<>
+              <tr>
+                <td colSpan={4}>
+                  <div className={'text-center h3'}>No Results Found With Search Query '{queryText}'</div>
+                </td>
+              </tr>
+            </>)}
           </div>
         </div>
       </div>

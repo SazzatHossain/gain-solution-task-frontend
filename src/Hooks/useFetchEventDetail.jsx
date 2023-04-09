@@ -3,13 +3,13 @@ import  axios  from "axios";
 import {urls} from "../Constants/urls";
 
 
-export const useFetchEventList = () => {
+export const useFetchMyEventDetail = () => {
   const [response, setResponse] = useState({
     data: [],
     isLoading: false,
     error: null,
   });
-  const fetchEventLists = useCallback((page, per_page = 10, search= '', from_date, to_date,)=>{
+  const fetchEventDetail = useCallback((id)=>{
     let config = {
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export const useFetchEventList = () => {
     };
     setResponse(prevState => ({...prevState, isLoading: true}));
     const asyncRequest = async () => {
-      const res = await axios.get(urls.eventsList(page, per_page, search, from_date, to_date), config);
+      const res = await axios.get(urls.myEventsDetail(id), config);
       setResponse(prevState => ({...prevState, data: res.data.data, isLoading: false}));
     };
 
@@ -31,5 +31,5 @@ export const useFetchEventList = () => {
     });
   }, [setResponse]);
 
-  return [response, fetchEventLists];
+  return [response, fetchEventDetail];
 };
