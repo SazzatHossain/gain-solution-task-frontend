@@ -19,6 +19,7 @@ const Main = () => {
   const PER_PAGE = 6;
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
+  const [rsvp, setRsvp] = useState(1);
   const [data, fetchEvent] = useFetchEventList();
   const events = data?.data.events ?? [];
   const count = data?.data.total_pages ?? 6;
@@ -30,7 +31,7 @@ const Main = () => {
 
   useEffect(() => {
     fetchEvent(page, PER_PAGE, filterby);
-  }, [fetchEvent, page, filterby]);
+  }, [fetchEvent, page, filterby, rsvp]);
   return (
     <>
       <div id='home' className=' flex items-center justify-center h-auto mx-20 my-12 bg-fixed bg-center bg-cover '>
@@ -39,7 +40,7 @@ const Main = () => {
             <div className=' grid md:grid-cols-3 lg:grid-cols-3 gap-8'>
               {events.map((event) => {
                 return (
-                  <EventCard eventDetail={event}/>
+                  <EventCard eventDetail={event} setRsvp={setRsvp}/>
                 );
               })}
             </div>

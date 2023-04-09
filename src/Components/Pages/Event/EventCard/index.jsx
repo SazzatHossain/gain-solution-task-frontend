@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {
@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useSaveRSVP } from "../../../../Hooks/useSaveRSVP";
+import {useFetchUserRsvpResponse} from "../../../../Hooks/useFetchRsvpResponse";
 
 const useStyles = makeStyles({
   root: {
@@ -17,13 +18,19 @@ const useStyles = makeStyles({
   },
 });
 
-const EventCard = ({ eventDetail }) => {
+const EventCard = ({ eventDetail,setRsvp }) => {
   const classes = useStyles();
-  const [, saveRSVP] = useSaveRSVP();
+  const [res, fetchRsvpResponse] = useFetchUserRsvpResponse();
+  let rsvpResponse = res;
+  console.log(rsvpResponse);
+  const [data, saveRSVP] = useSaveRSVP();
   const saveRSVPDetail = (attending) => {
     saveRSVP(eventDetail.id, attending);
+    setRsvp(data);
   };
-
+  useEffect(() => {
+    fetchRsvpResponse();
+  }, [fetchRsvpResponse, data]);
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -58,7 +65,7 @@ const EventCard = ({ eventDetail }) => {
             variant="p"
             component="p"
           >
-            `Created by {eventDetail?.user_first_name} {eventDetail?.user_last_name}`
+            by {eventDetail?.user_first_name} {eventDetail?.user_last_name}
           </Typography>
           <Typography
             className={"cursor-pointer hover:underline"}
