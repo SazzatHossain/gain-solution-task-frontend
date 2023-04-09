@@ -13,6 +13,7 @@ import {
   TITLE_NO_MIN_LEN
 } from "../../../Constants/general";
 import {ToastContainer} from "react-toastify";
+import {useUpdateEventDetail} from "../../../Hooks/useUpdateEvent";
 
 const useStyles = makeStyles({
   root: {
@@ -22,17 +23,17 @@ const useStyles = makeStyles({
   }
 });
 
-const EventCreateForm = ({event, setEvent}) => {
+const EventUpdateForm = ({event, setEvent}) => {
   const classes = useStyles();
-  const [, saveEvent] = useSaveEventDetail();
+  const [, updateEvent] = useUpdateEventDetail();
   const [errors, setErrors] = useState();
 
   const handleChange = (event) => {
     setEvent((prevValue) => ({...prevValue, [event.target.name]: event.target.value}));
   };
 
-  const saveEventDetail = () => {
-    saveEvent(event);
+  const updateEventDetail = () => {
+    updateEvent(event);
   };
   ///////////// form validation
   let buttonClickable = false;
@@ -123,11 +124,11 @@ const EventCreateForm = ({event, setEvent}) => {
                    error={Boolean(errors?.end_time)}
                    helperText={(errors?.end_time)}
         />
-        <Button  onClick={saveEventDetail} disabled={buttonClickable} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
-          <span style={{color: "#ffffff", fontWeight: "bold"}}>Create Event</span>
+        <Button  onClick={updateEventDetail} disabled={buttonClickable} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+          <span style={{color: "#ffffff", fontWeight: "bold"}}>Update Event</span>
         </Button>
       </Container>
     </Card>
   );
 }
-export default EventCreateForm;
+export default EventUpdateForm;

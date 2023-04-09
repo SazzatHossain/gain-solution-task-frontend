@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import EventCreateForm from "./event-create-form";
+import EventUpdateForm from "./event-update-form";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const EventNewPage = () => {
+const EventEditPage = () => {
   const [event, setEvent] = useState({});
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const EventNewPage = () => {
       <div id='home' className=' flex items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover '>
         <div style={{marginTop: 60}} className='flex flex-col mt-[200px] z-[3]'>
           <div className={classes.root}>
-            <EventCreateForm event={event} setEvent={setEvent} />
+            <EventUpdateForm event={event} setEvent={setEvent} />
           </div>
         </div>
       </div>
@@ -31,4 +31,4 @@ const EventNewPage = () => {
   );
 };
 
-export default EventNewPage;
+export default EventEditPage;
