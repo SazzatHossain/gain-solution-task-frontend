@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {
@@ -7,8 +7,10 @@ import {
   CardContent,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useSaveRSVP } from "../../../../Hooks/useSaveRSVP";
+import {useFetchUserRsvpResponse} from "../../../../Hooks/useFetchRsvpResponse";
+import {ToastContainer} from "react-toastify";
 
 const useStyles = makeStyles({
   root: {
@@ -17,16 +19,22 @@ const useStyles = makeStyles({
   },
 });
 
-const EventCard = ({ eventDetail }) => {
+const EventCard = ({ eventDetail,setRsvp }) => {
   const classes = useStyles();
-  const [, saveRSVP] = useSaveRSVP();
+  const [res, fetchRsvpResponse] = useFetchUserRsvpResponse();
+  let rsvpResponse = res?.data?.data;
+  const [data, saveRSVP] = useSaveRSVP();
   const saveRSVPDetail = (attending) => {
     saveRSVP(eventDetail.id, attending);
+    setRsvp(data);
   };
-
+  useEffect(() => {
+    fetchRsvpResponse(eventDetail?.id);
+  }, [fetchRsvpResponse, data]);
   return (
-    <Card className={classes.root}>
-      <CardContent>
+  <Card className={classes.root}>
+    <ToastContainer/>
+    <CardContent>
         <div className={"flex justify-between items-center "}>
           <Typography gutterBottom variant="h6" component="h6">
             {eventDetail?.title}
@@ -34,7 +42,7 @@ const EventCard = ({ eventDetail }) => {
           {JSON.parse(localStorage.getItem("user_id")) ===
           eventDetail?.user_id ? (
             <>
-              <Link to="/edit-my-events">
+              <Link to={`edit-my-event/${eventDetail.id}`}>
                 <Typography
                   className={"cursor-pointer hover:underline"}
                   gutterBottom
@@ -58,7 +66,7 @@ const EventCard = ({ eventDetail }) => {
             variant="p"
             component="p"
           >
-            `Created by {eventDetail?.user_first_name} {eventDetail?.user_last_name}`
+            by {eventDetail?.user_first_name} {eventDetail?.user_last_name}
           </Typography>
           <Typography
             className={"cursor-pointer hover:underline"}

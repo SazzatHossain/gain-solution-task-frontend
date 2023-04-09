@@ -9,10 +9,6 @@ import {ToastContainer} from "react-toastify";
 import {validateMaxLength, validateMinLength, validateRequired, validates} from "../../../FormValidator/Validator";
 import {
   EMAIL_MAX_LEN, FIRST_NAME_MAX_LEN, FIRST_NAME_MIN_LEN, LAST_NAME_MAX_LEN, LAST_NAME_MIN_LEN,
-  PASSWORD_MAX_LEN,
-  PASSWORD_MIN_LEN,
-  PHONE_NO_MAX_LEN,
-  PHONE_NO_MIN_LEN
 } from "../../../../Constants/general";
 
 const useStyles = makeStyles((theme) => ({

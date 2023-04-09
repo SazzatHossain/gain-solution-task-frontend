@@ -1,8 +1,10 @@
 import {configureStore} from "@reduxjs/toolkit";
-import filterSliceReducer from "./slices/fliterSlice";
+import searchReducer from "./slices/searchSlice";
+import isLoggedInSliceReducer from "./slices/loginSucessSlice";
 
 export const store = configureStore({
  reducer: {
-   eventsFilter: filterSliceReducer
+   search: searchReducer,
+   isLoggedInReducer: isLoggedInSliceReducer
  }
 })

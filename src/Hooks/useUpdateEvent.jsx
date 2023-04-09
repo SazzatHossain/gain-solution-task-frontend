@@ -3,13 +3,13 @@ import  axios  from "axios";
 import {urls} from "../Constants/urls";
 import {toast} from "react-toastify";
 
-export const useSaveRSVP = () => {
+export const useUpdateEventDetail = () => {
   const [response, setResponse] = useState({
     data: [],
     isLoading: false,
     error: null,
   });
-  const saveRSVP = useCallback((eventId, attending)=>{
+  const createEventDetail = useCallback((eventDetail)=>{
     setResponse(prevState => ({...prevState, isLoading: true}));
     const asyncRequest = async () => {
       let config = {
@@ -21,10 +21,10 @@ export const useSaveRSVP = () => {
           token: JSON.parse(localStorage.getItem("token"))
         }
       };
-      const url = urls.rsvp(eventId);
-      const res = await axios.post(url, {attending}, config);
+      const url = `${urls.events}/${eventDetail.id}`;
+      const res = await axios.patch(url, eventDetail, config);
       setResponse(prevState => ({...prevState, data: res.data.data, isLoading: false}));
-      toast.success('Successfully responded', {
+      toast.success("Successfully Updated Event", {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -37,7 +37,9 @@ export const useSaveRSVP = () => {
     };
 
     asyncRequest().catch(error => {
-      toast.error('Already responded', {
+      console.log(error);
+      setResponse(prevState => ({...prevState, isLoading: false}));
+      toast.error("Event update failed", {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -47,10 +49,8 @@ export const useSaveRSVP = () => {
         progress: undefined,
         theme: "colored",
       });
-      console.log(error);
-      setResponse(prevState => ({...prevState, isLoading: false}));
     });
   }, [setResponse]);
 
-  return [response, saveRSVP];
+  return [response, createEventDetail];
 };

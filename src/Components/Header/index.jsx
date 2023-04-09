@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../../assets/logo/Gain-Solutions-Logo.png";
-import { Link } from "react-router-dom";
+import Logo from "../../assets/logo/color-logo-white.svg";
+import {Link, useNavigate} from "react-router-dom";
 import { TextField } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilter } from "../../redux/slices/fliterSlice";
+import { setQuery,setToDate, setFromDate } from "../../redux/slices/searchSlice";
+import {toast, ToastContainer} from "react-toastify";
 
 const Header = () => {
-  const [eventFromDate, setEventFromDate] = useState("");
-  const [eventToDate, setEventToDate] = useState("");
-  const filter = useSelector((state) => state.eventsFilter.filterText);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(filter);
+  const queryText = useSelector(state => state.search.query);
+  // const eventFromDateData = useSelector(state => state.search.eventFromDate);
+  // const eventToDateData = useSelector(state => state.search.eventToDate);
 
   const checkIfLoggedIn = () => {
     return !(
@@ -22,12 +23,33 @@ const Header = () => {
   const onLoginSuccess = () => {
     setIsLoggedIn(true);
   };
+//////////////// logOutAction
+
+  const handleClickLogOut = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_type");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
+    navigate("/");
+    toast.success("Successfully Logged out", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
   return (
     <>
+      <ToastContainer/>
       <header className="bg-gray-700 border-gray-200 dark:bg-gray-900">
         <div className=" flex flex-wrap items-center justify-between w-full bg-gray-700 p-4 mx-[10%]">
           <a href="/" className="">
-            <img src={Logo} alt="" className=" " width="150px" height="auto" />
+            <img src={Logo} alt="" className=" " width="70px" height="auto" />
           </a>
         </div>
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -107,6 +129,15 @@ const Header = () => {
                     </Link>
                   </li>
                 )}
+                {isLoggedIn && (
+                  <li>
+                    <div onClick={handleClickLogOut}
+                      className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Log out
+                    </div>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -114,8 +145,8 @@ const Header = () => {
         <div className="bg-white flex flex-wrap items-center justify-center w-full pb-4">
           <div className="">
             <TextField
-              onChange={(e) => dispatch(setFilter(e.target.value))}
-              value={filter}
+              onChange={(e) => dispatch(setQuery(e.target.value))}
+              value={queryText}
               className={"search-fields"}
               placeholder={"Search events"}
               type={"search"}
@@ -127,33 +158,33 @@ const Header = () => {
               size={"small"}
               style={{ width: 400, marginRight: 20 }}
             />
-            <TextField
-              className={"search-fields"}
-              type={"date"}
-              name={""}
-              id={""}
-              variant="outlined"
-              required
-              size={"small"}
-              style={{ marginRight: 20 }}
-              value={eventFromDate}
-              onChange={(event) => {
-                setEventFromDate(event.target.value);
-              }}
-            />
-            <TextField
-              className={"search-fields"}
-              type={"date"}
-              name={""}
-              id={""}
-              variant="outlined"
-              required
-              size={"small"}
-              value={eventToDate}
-              onChange={(event) => {
-                setEventToDate(event.target.value);
-              }}
-            />
+            {/*<TextField*/}
+            {/*  className={"search-fields"}*/}
+            {/*  type={"date"}*/}
+            {/*  name={""}*/}
+            {/*  id={""}*/}
+            {/*  variant="outlined"*/}
+            {/*  required*/}
+            {/*  size={"small"}*/}
+            {/*  style={{ marginRight: 20 }}*/}
+            {/*  value={eventFromDateData}*/}
+            {/*  onChange={(event) => {*/}
+            {/*    dispatch(setFromDate(event.target.value));*/}
+            {/*  }}*/}
+            {/*/>*/}
+            {/*<TextField*/}
+            {/*  className={"search-fields"}*/}
+            {/*  type={"date"}*/}
+            {/*  name={""}*/}
+            {/*  id={""}*/}
+            {/*  variant="outlined"*/}
+            {/*  required*/}
+            {/*  size={"small"}*/}
+            {/*  value={eventToDateData}*/}
+            {/*  onChange={(event) => {*/}
+            {/*    dispatch(setToDate(event.target.value));*/}
+            {/*  }}*/}
+            {/*/>*/}
           </div>
         </div>
       </header>

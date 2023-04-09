@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import {Button, Container, Grid, TextField} from "@material-ui/core";
-import {useSaveEventDetail} from "../../../Hooks/useCreateEvents";
 import {validateMaxLength, validateMinLength, validateRequired, validates} from "../../FormValidator/Validator";
 import {
   DESCRIPTION_NO_MAX_LEN,
@@ -13,6 +12,7 @@ import {
   TITLE_NO_MIN_LEN
 } from "../../../Constants/general";
 import {ToastContainer} from "react-toastify";
+import {useUpdateEventDetail} from "../../../Hooks/useUpdateEvent";
 
 const useStyles = makeStyles({
   root: {
@@ -22,18 +22,20 @@ const useStyles = makeStyles({
   }
 });
 
-const EventCreateForm = ({event, setEvent}) => {
+const EventUpdateForm = ({event, setEvent}) => {
   const classes = useStyles();
-  const [, saveEvent] = useSaveEventDetail();
+  const [, updateEvent] = useUpdateEventDetail();
   const [errors, setErrors] = useState();
 
   const handleChange = (event) => {
     setEvent((prevValue) => ({...prevValue, [event.target.name]: event.target.value}));
   };
 
-  const saveEventDetail = () => {
-    saveEvent(event);
+  const updateEventDetail = () => {
+    updateEvent(event);
   };
+
+
   ///////////// form validation
   let buttonClickable = false;
   if (!event.title?.length > 0 || !event.description?.length > 0 || !event.location?.length > 0 || !event.start_time?.length > 0 || !event.end_time?.length > 0 ||  errors.title?.length > 0 || errors.description?.length > 0 || errors.location?.length > 0 || errors.start_time?.length > 0 || errors.end_time?.length > 0) {
@@ -63,13 +65,13 @@ const EventCreateForm = ({event, setEvent}) => {
       <ToastContainer/>
       <Container  component="main" maxWidth="xs">
         <Grid align="center" style={{paddingBottom: 20}}>
-          <p style={{fontWeight:"bold", fontSize: 20}}>Create a event</p>
+          <p style={{fontWeight:"bold", fontSize: 20}}>Update a event</p>
         </Grid>
         <TextField variant="outlined"
-                   label='Event title'
                    placeholder="Event title"
                    fullWidth
                    name={'title'}
+                   value={event?.title}
                    required
                    onChange={handleChange}
                    error={Boolean(errors?.title)}
@@ -82,9 +84,9 @@ const EventCreateForm = ({event, setEvent}) => {
           minRows={4}
           aria-label="minimum height"
           variant="outlined"
-          label='Event description'
           placeholder="Event description"
           style={{ width: "100%" }}
+          value={event?.description}
           name={'description'}
           onChange={handleChange}
           error={Boolean(errors?.description)}
@@ -92,8 +94,8 @@ const EventCreateForm = ({event, setEvent}) => {
         />
         <br/><br/>
         <TextField variant="outlined"
-                   label="Location"
                    placeholder="Input address"
+                   value={event?.location}
                    name={"location"}
                    fullWidth
                    required
@@ -104,6 +106,7 @@ const EventCreateForm = ({event, setEvent}) => {
         <br/><br/>
         <TextField variant="outlined"
                    placeholder="Starting at"
+                   value={event?.start_at}
                    name={"start_time"}
                    type='datetime-local'
                    fullWidth
@@ -115,6 +118,7 @@ const EventCreateForm = ({event, setEvent}) => {
         <br/><br/>
         <TextField variant="outlined"
                    placeholder="End at"
+                   value={event?.end_at}
                    name={"end_time"}
                    type='datetime-local'
                    fullWidth
@@ -123,11 +127,11 @@ const EventCreateForm = ({event, setEvent}) => {
                    error={Boolean(errors?.end_time)}
                    helperText={(errors?.end_time)}
         />
-        <Button  onClick={saveEventDetail} disabled={buttonClickable} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
-          <span style={{color: "#ffffff", fontWeight: "bold"}}>Create Event</span>
+        <Button  onClick={updateEventDetail} disabled={buttonClickable} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+          <span style={{color: "#ffffff", fontWeight: "bold"}}>Update Event</span>
         </Button>
       </Container>
     </Card>
   );
 }
-export default EventCreateForm;
+export default EventUpdateForm;
