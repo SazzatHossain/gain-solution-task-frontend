@@ -24,9 +24,15 @@ export const useSaveRSVP = () => {
       const url = urls.rsvp(eventId);
       const res = await axios.post(url, {attending}, config);
       setResponse(prevState => ({...prevState, data: res.data.data, isLoading: false}));
-      toast.success(res.data.message, {
-        position: toast.POSITION.BOTTOM_LEFT,
-        autoClose: 3000
+      toast.success('Successfully responder', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
     };
 

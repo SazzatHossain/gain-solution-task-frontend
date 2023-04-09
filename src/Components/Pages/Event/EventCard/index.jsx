@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useSaveRSVP } from "../../../../Hooks/useSaveRSVP";
 import {useFetchUserRsvpResponse} from "../../../../Hooks/useFetchRsvpResponse";
+import {ToastContainer} from "react-toastify";
 
 const useStyles = makeStyles({
   root: {
@@ -21,19 +22,20 @@ const useStyles = makeStyles({
 const EventCard = ({ eventDetail,setRsvp }) => {
   const classes = useStyles();
   const [res, fetchRsvpResponse] = useFetchUserRsvpResponse();
-  let rsvpResponse = res;
-  console.log(rsvpResponse);
+  // let rsvpResponse = res;
+  // console.log(rsvpResponse);
   const [data, saveRSVP] = useSaveRSVP();
   const saveRSVPDetail = (attending) => {
     saveRSVP(eventDetail.id, attending);
     setRsvp(data);
   };
   useEffect(() => {
-    fetchRsvpResponse();
+    fetchRsvpResponse(eventDetail?.id);
   }, [fetchRsvpResponse, data]);
   return (
-    <Card className={classes.root}>
-      <CardContent>
+  <Card className={classes.root}>
+    <ToastContainer/>
+    <CardContent>
         <div className={"flex justify-between items-center "}>
           <Typography gutterBottom variant="h6" component="h6">
             {eventDetail?.title}

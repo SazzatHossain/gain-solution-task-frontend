@@ -37,7 +37,7 @@ const Main = () => {
       <div id='home' className=' flex items-center justify-center h-auto mx-20 my-12 bg-fixed bg-center bg-cover '>
         <div  className='flex flex-col  z-[3]'>
           <div className={classes.root}>
-            <div className=' grid md:grid-cols-3 lg:grid-cols-3 gap-8'>
+            <div className=' grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
               {events.map((event) => {
                 return (
                   <EventCard eventDetail={event} setRsvp={setRsvp}/>

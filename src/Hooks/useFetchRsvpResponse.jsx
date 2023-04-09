@@ -8,12 +8,13 @@ export const useFetchUserRsvpResponse = () => {
     isLoading: false,
     error: null,
   });
-  const fetchRsvpResponse = useCallback(() => {
+  const fetchRsvpResponse = useCallback((event_id) => {
     setResponse(prevState => ({...prevState, isLoading: true}));
     const asyncRequest = async () => {
-      const url = `${urls.rsvpResponse}`;
-      const res = await axios.get(url, {params: {token: JSON.parse(localStorage.getItem("token"))}});
+      const res = await axios.get(urls.rsvpResponse(event_id), {params: {token: JSON.parse(localStorage.getItem("token"))}});
       setResponse(prevState => ({...prevState, data: res, isLoading: false}));
+      console.log(response);
+
     };
 
     return asyncRequest().catch(error => {
