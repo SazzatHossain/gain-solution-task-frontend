@@ -14,4 +14,5 @@ export const urls = {
   userDetailUpdate: `${HOST}/user-data-update`,
   rsvp: (event_id) => `${HOST}/events/${event_id}/rsvps`,
   eventsList: (page = 1, per_page = 6, search = '') => `${HOST}/events?page=${page}&per_page=${per_page}&search=${search}`,
+  myEventsList: (page = 1, per_page = 6, search = '') => `${HOST}/my-events-list?page=${page}&per_page=${per_page}&search=${search}`,
 };

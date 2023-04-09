@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import EventCard from "../Event/EventCard";
-import {useFetchEventList} from "../../../Hooks/useFetchEventsLists";
-import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {filterText} from "../../../redux/slices/fliterSlice";
 import {TablePagination} from "@material-ui/core";
+import EventCard from "../EventCard";
+import {useFetchMyEventList} from "../../../../Hooks/useFetchMyEventsList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,12 +13,11 @@ const useStyles = makeStyles((theme) => ({
     }
   }
 }));
-const Main = () => {
+const  MyEvents = () => {
   const classes = useStyles();
   const PER_PAGE = 6;
-  const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [data, fetchEvent] = useFetchEventList();
+  const [data, fetchEvent] = useFetchMyEventList();
   const events = data?.data.events ?? [];
   const count = data?.data.total_pages ?? 6;
   const handlePaginationChange = (event, value) => {
@@ -52,4 +50,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default MyEvents;

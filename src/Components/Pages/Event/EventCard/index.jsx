@@ -28,10 +28,13 @@ const EventCard = ({eventDetail}) => {
           </Typography>
           <Link to="/user-profile-edit">
             <Typography className={"cursor-pointer hover:underline"} gutterBottom color="textSecondary" variant="p" component="p">
-              {eventDetail?.attending} people are going
+              Edit
             </Typography>
           </Link>
         </div>
+        <Typography className={"cursor-pointer hover:underline"} gutterBottom color="textSecondary" variant="p" component="p">
+          {eventDetail?.attending} people are going
+        </Typography>
         <Typography className={"cursor-pointer  mb-2"} gutterBottom color="textSecondary" variant="p" component="p" mb-2>
           <span className='font-bold'>Location</span>: {eventDetail?.location}
         </Typography>
@@ -48,9 +51,6 @@ const EventCard = ({eventDetail}) => {
       <CardActions disableSpacing >
         <Button size="small" color="primary" onClick={() => saveRSVPDetail(true)}>
           Going
-        </Button>
-        <Button size="small" color="secondary" onClick={() => saveRSVPDetail(false)}>
-          Not going
         </Button>
       </CardActions>
     </Card>

@@ -6,6 +6,7 @@ import Registration from "../Pages/Registration";
 import UserProfile from "../Pages/UserProfile";
 import UserProfileEdit from "../Pages/UserProfile/UserProfileEdit";
 import EventNewForm from "../Pages/Event/EventNewPage";
+import MyEvents from "../Pages/Event/myEvents";
 import Header from "../Header";
 import Footer from "../Footer";
 
@@ -20,6 +21,7 @@ const BootLoader = () => {
         <Route exact path="/user-profile" element={<UserProfile/>}/>
         <Route exact path="/user-profile-edit" element={<UserProfileEdit/>}/>
         <Route exact path="/create-event" element={<EventNewForm/>}/>
+        <Route exact path="/my-events" element={<MyEvents/>}/>
       </Routes>
       <Footer />
     </Router>
