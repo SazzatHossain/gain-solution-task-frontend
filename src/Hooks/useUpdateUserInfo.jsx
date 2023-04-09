@@ -1,30 +1,23 @@
 import { useCallback, useState } from 'react';
 import  axios  from "axios";
-import {urls} from "../Constants/urls";
 import {toast} from "react-toastify";
+import {urls} from "../Constants/urls";
+import {useNavigate} from "react-router-dom";
 
-export const useSaveEventDetail = () => {
+export const useUpdateUserInfo = () => {
+  const navigate = useNavigate();
   const [response, setResponse] = useState({
     data: [],
     isLoading: false,
     error: null,
   });
-  const createEventDetail = useCallback((eventDetail)=>{
+  const updateUserInfo = useCallback((userDetail)=>{
     setResponse(prevState => ({...prevState, isLoading: true}));
     const asyncRequest = async () => {
-      let config = {
-        headers: {
-          "Content-Type": "application/json",
-          'Access-Control-Allow-Origin': '*',
-        },
-        params: {
-          token: JSON.parse(localStorage.getItem("token"))
-        }
-      };
-      const url = urls.events;
-      const res = await axios.post(url, eventDetail, config);
+      const url = `${urls.userDetailUpdate}`;
+      const res = await axios.patch(url,userDetail,{params: {token: JSON.parse(localStorage.getItem("token"))}});
       setResponse(prevState => ({...prevState, data: res.data.data, isLoading: false}));
-      toast.success("Successfully Created Event", {
+      toast.success('Successfully updated user profile', {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -34,12 +27,17 @@ export const useSaveEventDetail = () => {
         progress: undefined,
         theme: "colored",
       });
+      if(res.data.status === 200) {
+        setTimeout(()=>{
+          navigate('/user-profile');
+        }, 1000);
+      }
     };
 
     asyncRequest().catch(error => {
       console.log(error);
       setResponse(prevState => ({...prevState, isLoading: false}));
-      toast.error("Event creation failed", {
+      toast.error('Unable to update profile', {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -52,5 +50,5 @@ export const useSaveEventDetail = () => {
     });
   }, [setResponse]);
 
-  return [response, createEventDetail];
+  return [response, updateUserInfo];
 };

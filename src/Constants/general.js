@@ -1,0 +1,15 @@
+export const FIRST_NAME_MAX_LEN = 50;
+export const FIRST_NAME_MIN_LEN = 1;
+export const LAST_NAME_MAX_LEN = 50;
+export const LAST_NAME_MIN_LEN = 1;
+export const EMAIL_MAX_LEN = 120;
+export const PASSWORD_MAX_LEN = 50;
+export const PASSWORD_MIN_LEN = 6;
+export const PHONE_NO_MAX_LEN = 14;
+export const PHONE_NO_MIN_LEN = 11;
+export const TITLE_NO_MAX_LEN = 30;
+export const TITLE_NO_MIN_LEN = 3;
+export const DESCRIPTION_NO_MAX_LEN = 100;
+export const DESCRIPTION_NO_MIN_LEN = 6;
+export const LOCATION_NO_MAX_LEN = 100;
+export const LOCATION_NO_MIN_LEN = 6;

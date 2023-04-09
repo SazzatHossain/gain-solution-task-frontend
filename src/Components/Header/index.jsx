@@ -3,11 +3,15 @@ import Logo from "../../assets/logo/Gain-Solutions-Logo.png";
 import {Link} from 'react-router-dom';
 import {TextField} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {filterText, setFilter} from "../../redux/slices/fliterSlice";
+import {setFilter} from "../../redux/slices/fliterSlice";
 
 const Header = () => {
-  const filter = useSelector((state) =>state.filterText);
+  const [eventFromDate, setEventFromDate] = useState('');
+  const [eventToDate, setEventToDate] = useState('');
+  const filter = useSelector((state) => state.eventsFilter.filterText);
   const dispatch = useDispatch();
+  console.log(filter);
+
   const checkIfLoggedIn = () => {
     return !(localStorage.getItem("token") === null || typeof localStorage.getItem("token") === 'undefined');
   };
@@ -100,6 +104,10 @@ const Header = () => {
               required
               size={"small"}
               style={{marginRight: 20}}
+              value={eventFromDate}
+              onChange={(event) => {
+                setEventFromDate(event.target.value);
+              }}
             />
             <TextField
               className={'search-fields'}
@@ -109,6 +117,10 @@ const Header = () => {
               variant="outlined"
               required
               size={"small"}
+              value={eventToDate}
+              onChange={(event) => {
+                setEventToDate(event.target.value);
+              }}
             />
           </div>
         </div>

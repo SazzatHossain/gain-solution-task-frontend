@@ -25,13 +25,12 @@ const Main = () => {
   const handlePaginationChange = (event, value) => {
     setPage(value);
   };
-  ////// redux state value for search
-  // const filterby = useSelector((state) => state.filterText);
-  console.log();
+  //// redux state value for search
+  const filterby = useSelector((state) => state.eventsFilter.filterText);
 
   useEffect(() => {
-    fetchEvent(page, PER_PAGE);
-  }, [fetchEvent, page, ]);
+    fetchEvent(page, PER_PAGE, filterby);
+  }, [fetchEvent, page, filterby]);
   return (
     <>
       <div id='home' className=' flex items-center justify-center h-auto mx-20 my-12 bg-fixed bg-center bg-cover '>

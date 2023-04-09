@@ -15,9 +15,15 @@ export const useFetchRegistrationToken = () => {
       const url = urls.registrationUrl;
       const res = await axios.post(url, { first_name: firstName, last_name: lastName, phone_no: phoneNo, password: password });
       setRegistrationResponse(prevState => ({...prevState, data: res.data, isLoading: false}));
-      toast.success("Registration Successful", {
-        position: toast.POSITION.BOTTOM_LEFT,
-        autoClose: 3000
+      toast.success('Successfully created User', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
     };
 
