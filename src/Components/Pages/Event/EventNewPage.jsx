@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles} from "@mui/material/styles";
 import EventCreateForm from "./event-create-form";
 
 const useStyles = makeStyles((theme) => ({

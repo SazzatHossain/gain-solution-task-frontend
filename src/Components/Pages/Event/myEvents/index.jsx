@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles} from "@mui/material/styles";
 import {useSelector} from "react-redux";
-import {TablePagination} from "@material-ui/core";
+import {Pagination} from "@mui/material";
 import EventCard from "../EventCard";
 import {useFetchMyEventList} from "../../../../Hooks/useFetchMyEventsList";
 
@@ -42,7 +42,7 @@ const  MyEvents = () => {
           </div>
         </div>
       </div>
-      <TablePagination count={count} page={page}  shape="rounded" onPageChange={handlePaginationChange}/>
+      <Pagination count={count} page={page}  shape="rounded" onPageChange={handlePaginationChange}/>
 
     </>
   );

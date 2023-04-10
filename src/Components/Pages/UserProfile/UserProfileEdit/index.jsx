@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
+import Card from "@mui/material/Card";
 import {Link} from 'react-router-dom';
-import {Button, CardActions, CardContent, TextField, Typography} from "@material-ui/core";
+import {Button, CardActions, CardContent, TextField, Typography} from "@mui/material";
 import {useFetchUserProfileDetail} from "../../../../Hooks/useFetchUserProfile";
 import {useUpdateUserInfo} from "../../../../Hooks/useUpdateUserInfo";
 import {ToastContainer} from "react-toastify";
@@ -10,6 +9,7 @@ import {validateMaxLength, validateMinLength, validateRequired, validates} from 
 import {
   EMAIL_MAX_LEN, FIRST_NAME_MAX_LEN, FIRST_NAME_MIN_LEN, LAST_NAME_MAX_LEN, LAST_NAME_MIN_LEN,
 } from "../../../../Constants/general";
+import {makeStyles} from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
 import EventCard from "../Event/EventCard";
 import {useFetchEventList} from "../../../Hooks/useFetchEventsLists";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {TablePagination} from "@material-ui/core";
+import {makeStyles, Pagination} from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,7 +56,7 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <TablePagination count={count} page={page}  shape="rounded" onPageChange={handlePaginationChange}/>
+      <Pagination count={count} page={page}  shape="rounded" onPageChange={handlePaginationChange}/>
 
     </>
   );

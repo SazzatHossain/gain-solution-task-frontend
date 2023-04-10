@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
+import { makeStyles } from "@mui/material/styles";
+import Card from "@mui/material/Card";
 import {
   Button,
   CardActions,
   CardContent,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import { useSaveRSVP } from "../../../../Hooks/useSaveRSVP";
 import {useFetchUserRsvpResponse} from "../../../../Hooks/useFetchRsvpResponse";

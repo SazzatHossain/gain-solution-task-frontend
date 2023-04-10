@@ -1,7 +1,4 @@
 import React, {useEffect, useState} from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import {Button, Container, Grid, TextField} from "@material-ui/core";
 import {validateMaxLength, validateMinLength, validateRequired, validates} from "../../FormValidator/Validator";
 import {
   DESCRIPTION_NO_MAX_LEN,
@@ -13,6 +10,7 @@ import {
 } from "../../../Constants/general";
 import {ToastContainer} from "react-toastify";
 import {useUpdateEventDetail} from "../../../Hooks/useUpdateEvent";
+import {Card, Container, Grid, makeStyles, Button, TextField} from "@mui/material";
 
 const useStyles = makeStyles({
   root: {

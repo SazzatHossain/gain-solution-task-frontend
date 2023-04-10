@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
+import {makeStyles} from "@mui/material/styles";
+import Card from "@mui/material/Card";
 import {Link} from 'react-router-dom';
-import {Button, CardActions, CardContent, Typography} from "@material-ui/core";
+import {Button, CardActions, CardContent, Typography} from "@mui/material";
 import {useFetchUserProfileDetail} from "../../../Hooks/useFetchUserProfile";
 
 const useStyles = makeStyles((theme) => ({

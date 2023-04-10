@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../../assets/logo/color-logo-white.svg";
 import {Link, useNavigate} from "react-router-dom";
-import { TextField } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { setQuery,setToDate, setFromDate } from "../../redux/slices/searchSlice";
 import {toast, ToastContainer} from "react-toastify";
+import {TextField} from "@mui/material";
 
 const Header = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles} from "@mui/material/styles";
 import EventUpdateForm from "./event-update-form";
 import {useFetchMyEventDetail} from "../../../Hooks/useFetchEventDetail";
 import {useParams} from "react-router-dom";
