@@ -67,7 +67,7 @@ const Registration = () => {
     <>
       <div id='home' className=' flex items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover '>
         <div  className='flex flex-col mt-[60px] z-[3]'>
-          <Card className={classes.root}>
+          <Card className={classes.root} style={{borderRadius: 30, boxShadow: "5px 10px 5px #f50057"}}>
             <Container  component="main" maxWidth="xs">
               <Grid align="center" >
                 <p className={"font-bold text-2xl pb-3"}>Sign Up</p>
@@ -130,7 +130,7 @@ const Registration = () => {
                          helperText={(errors?.password)}
               />
               <br/><br/>
-              <Button onClick={handleSubmit} variant="contained" color="primary" disabled={buttonClickable} fullWidth style={{marginTop:20}}>
+              <Button onClick={handleSubmit} variant="contained" color="secondary" disabled={buttonClickable} fullWidth style={{marginTop:20}}>
                 <span style={{color: "#ffffff", fontWeight: "bold"}}>Sign Up</span>
               </Button>
             </Container>

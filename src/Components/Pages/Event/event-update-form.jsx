@@ -61,7 +61,7 @@ const EventUpdateForm = ({event, setEvent}) => {
   }, [event]);
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} style={{borderRadius: 30, boxShadow: "5px 10px 5px #FF3358"}}>
       <ToastContainer/>
       <Container  component="main" maxWidth="xs">
         <Grid align="center" style={{paddingBottom: 20}}>
@@ -127,7 +127,7 @@ const EventUpdateForm = ({event, setEvent}) => {
                    error={Boolean(errors?.end_time)}
                    helperText={(errors?.end_time)}
         />
-        <Button  onClick={updateEventDetail} disabled={buttonClickable} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+        <Button  onClick={updateEventDetail} disabled={buttonClickable} variant="contained" color="secondary" fullWidth style={{marginTop:20}}>
           <span style={{color: "#ffffff", fontWeight: "bold"}}>Update Event</span>
         </Button>
       </Container>

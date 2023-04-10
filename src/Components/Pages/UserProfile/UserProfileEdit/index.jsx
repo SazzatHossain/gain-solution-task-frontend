@@ -74,7 +74,7 @@ const UserProfileEdit = () => {
       <div id='home' className=' flex items-center justify-center h-auto my-12 bg-fixed bg-center bg-cover '>
         <div  className='flex flex-col z-[3]'>
           <div className={classes.root}>
-            <Card className={classes.root}>
+            <Card className={classes.root} style={{borderRadius: 30, boxShadow: "5px 10px 5px  #f50057"}}>
               <CardContent>
                 <div className={"flex justify-between items-center my-2"}>
                   <Typography gutterBottom variant="h5" component="h2">
@@ -128,7 +128,7 @@ const UserProfileEdit = () => {
                              helperText={(errors?.email)}
                   />
                 </div>
-                <Button disabled={buttonClickable} onClick={saveUserDetail} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+                <Button disabled={buttonClickable} onClick={saveUserDetail} variant="contained" color="secondary" fullWidth style={{marginTop:20}}>
                   <span style={{color: "#ffffff", fontWeight: "bold"}}>Update info</span>
                 </Button>
               </CardContent>

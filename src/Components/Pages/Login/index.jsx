@@ -69,9 +69,9 @@ const Login = () => {
   return (
     <>
       <ToastContainer/>
-      <div id='home' className=' flex  justify-center h-screen bg-fixed bg-center bg-cover '>
+      <div id='home' className=' flex  justify-center h-screen bg-fixed bg-center bg-cover ' >
         <div  className='flex flex-col z-[3] mt-[60px]'>
-          <Card className={classes.root}>
+          <Card className={classes.root} style={{borderRadius: 30, boxShadow: "5px 10px 5px #f50057"}}>
             <Container  component="main" maxWidth="xs">
               <Grid align="center" className={'pb-[20px]'}>
                 <p className={"font-bold text-2xl "}>Sign In</p>
@@ -98,7 +98,7 @@ const Login = () => {
                          error={Boolean(errors?.password)}
                          helperText={(errors?.password)}
               />
-              <Button onClick={handleSubmit} disabled={buttonClickable} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+              <Button onClick={handleSubmit} disabled={buttonClickable} variant="contained" color="secondary" fullWidth style={{marginTop:20}}>
                 <span style={{color: "#ffffff", fontWeight: "bold"}}>Sign In</span>
               </Button>
 
