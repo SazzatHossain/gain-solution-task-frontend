@@ -59,7 +59,7 @@ const EventCreateForm = ({event, setEvent}) => {
   }, [event]);
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} style={{borderRadius: 30, boxShadow: "5px 10px 5px #f50057"}}>
       <ToastContainer/>
       <Container  component="main" maxWidth="xs">
         <Grid align="center" style={{paddingBottom: 20}}>
@@ -123,7 +123,7 @@ const EventCreateForm = ({event, setEvent}) => {
                    error={Boolean(errors?.end_time)}
                    helperText={(errors?.end_time)}
         />
-        <Button  onClick={saveEventDetail} disabled={buttonClickable} variant="contained" color="primary" fullWidth style={{marginTop:20}}>
+        <Button  onClick={saveEventDetail} disabled={buttonClickable} variant="contained" color="secondary" fullWidth style={{marginTop:20}}>
           <span style={{color: "#ffffff", fontWeight: "bold"}}>Create Event</span>
         </Button>
       </Container>

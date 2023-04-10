@@ -12,4 +12,4 @@ export const TITLE_NO_MIN_LEN = 3;
 export const DESCRIPTION_NO_MAX_LEN = 100;
 export const DESCRIPTION_NO_MIN_LEN = 6;
 export const LOCATION_NO_MAX_LEN = 100;
-export const LOCATION_NO_MIN_LEN = 6;
+export const LOCATION_NO_MIN_LEN = 2;

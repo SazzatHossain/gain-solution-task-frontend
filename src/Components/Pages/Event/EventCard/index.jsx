@@ -31,10 +31,16 @@ const EventCard = ({ eventDetail,setRsvp }) => {
   useEffect(() => {
     fetchRsvpResponse(eventDetail?.id);
   }, [fetchRsvpResponse, data]);
+  const start_time = new Date(eventDetail?.start_time);
+  const end_time = new Date(eventDetail?.end_time);
+  const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+  const formattedDateStartTime = start_time.toLocaleString('en-US', options); // convert the date to a human-friendly format
+  const formattedDateEndTime = end_time.toLocaleString('en-US', options); // convert the date to a human-friendly format
+
   return (
-  <Card className={classes.root}>
+  <Card className={`${classes.root}`} style={{borderRadius: 30, boxShadow: "5px 10px 5px #f50057"}}>
     <ToastContainer/>
-    <CardContent>
+    <CardContent >
         <div className={"flex justify-between items-center "}>
           <Typography gutterBottom variant="h6" component="h6">
             {eventDetail?.title}
@@ -42,11 +48,11 @@ const EventCard = ({ eventDetail,setRsvp }) => {
           {JSON.parse(localStorage.getItem("user_id")) ===
           eventDetail?.user_id ? (
             <>
-              <Link to={`edit-my-event/${eventDetail.id}`}>
+              <Link to={`/edit-my-event/${eventDetail.id}`}>
                 <Typography
                   className={"cursor-pointer hover:underline"}
                   gutterBottom
-                  color="textSecondary"
+                  color="secondary"
                   variant="p"
                   component="p"
                 >
@@ -96,7 +102,7 @@ const EventCard = ({ eventDetail,setRsvp }) => {
           component="p"
           mb-2
         >
-          <span className="font-bold">From</span>: {eventDetail?.start_time}
+          <span className="font-bold">From</span>: {formattedDateStartTime}
         </Typography>
         <Typography
           className={"cursor-pointer mb-2"}
@@ -106,16 +112,16 @@ const EventCard = ({ eventDetail,setRsvp }) => {
           component="p"
           mb-2
         >
-          <span className="font-bold">To</span>: {eventDetail?.end_time}
+          <span className="font-bold">To</span>: {formattedDateEndTime}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          Today at 6:15 p.m a iftar party at our plack. Please join.
+          {eventDetail?.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <Button
           size="small"
-          color="primary"
+          color="secondary"
           onClick={() => saveRSVPDetail(true)}
         >
           Going
